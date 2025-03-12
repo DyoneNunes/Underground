@@ -40,34 +40,34 @@ import { ImageType } from './components/Image/Image';
 
 export const HIKES: Hike[] = [
     {
-        rating: 4.8,
+        rating: 5.0,
         image: lakeImage,
         imageWebp: lakeWebp,
-        title: 'Озеро возле гор',
-        subTitle: 'романтическое приключение',
+        title: 'Nome da Tattoo',
+        subTitle: 'Tatoador',
         description:
-            'Прекрасное озеро в окружении каменных великанов. Вы проведёте незабываемое время с теми, кто для вас важен. В эту поездку вы получите заряд сил на долгое время. Горы не оставляют равнодушным никого. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum, "consectetur"и занялся его поисками в классической латинской литературе.',
-        price: '480$',
+            'testo de descriçao da tattoo.',
+        price: 'R$ 2000',
     },
     {
-        rating: 4.9,
+        rating: 4.5,
         image: mountainsNight,
         imageWebp: mountainsNightWebp,
-        title: 'Ночь в горах',
-        subTitle: 'в компании друзей',
+        title: 'Nome da Tattoo',
+        subTitle: 'Tatoador',
         description:
-            'Звёздная ночь в горах в кругу единомышленников. Что может быть лучше? Ночёвка в комфортабельных домиках.',
-        price: '500$',
+            'testo de descriçao da tattoo.',
+        price: 'R$ 2000',
     },
     {
-        rating: 4.9,
+        rating: 4.0,
         image: mountainsJoga,
         imageWebp: mountainsJogaWebp,
-        title: 'Йога в горах',
-        subTitle: 'для тех, кто забоится о себе',
+        title: 'Nome da Tattoo',
+        subTitle: 'Tatoador',
         description:
-            'Для всех кто любит активный отдых и физические упражнения, чтобы улучшать свое здоровье и вести за собой здоровый образ жизни. Йога действует не только тонизирует мышцы и улучшает дыхание, но и позволяет углубить контакт с окружающей средой, с собой и, следовательно, с найди свою гармонию внутреннее и собственное душевное равновесие.',
-        price: '270$',
+            'testo de descriçao da tattoo.',
+        price: 'R$ 2000',
     },
 ];
 
@@ -98,34 +98,34 @@ export const POSTS: BlogPostCardType[] = [
     {
         image: italyImg,
         imageWebp: italyWebp,
-        alt: 'Вид Италии',
-        title: 'Красивая Италия, какая она в реальности?',
-        text: 'Италия - одна из самых красивых стран в мире. Здесь есть что посмотреть - и древняя архитектура, и музеи, и захватывающие дух береговые линии, и потрясающие пейзажи.',
-        date: '01/04/2023',
+        alt: 'LionRanja',
+        title: 'Lion',
+        text: 'uma breve descriçao do serviço',
+        date: 'Estilo de Tattoo',
     },
     {
         image: flightImg,
         imageWebp: flightWebp,
-        alt: 'Полёт самолёта в облаках',
-        title: 'Долой сомнения! Весь мир открыт для вас!',
-        text: 'Отправляясь в путешествие, вы никогда не знаете какие открытия и судьбоносные встречи вас ожидают.',
-        date: '01/04/2023',
+        alt: 'Scheffer tattoo',
+        title: 'Scheffer',
+        text: 'Uma breve descriçao de serviços.',
+        date: 'estilo de tattoo',
     },
     {
         image: backpackImg,
         imageWebp: backpackWebp,
-        alt: 'Путешественник',
-        title: 'Как подготовиться к путешествию в одиночку?',
-        text: 'Благодаря путешествиям вы сможете посмотреть на жизнь по новому. Вы обретёте свободу и возможность видеть страны так, ка вы этого хотите.',
-        date: '02/05/2023',
+        alt: 'JV tattoo',
+        title: 'Jv Tattoo',
+        text: 'Uma breve descriçao de servço.',
+        date: 'Pontilismo Geometrico',
     },
     {
         image: mosqueImg,
         imageWebp: mosqueWebp,
-        alt: 'Вид на мечеть',
-        title: 'Индия ... летим?',
-        text: 'Одна из тех стран, которая никого не оставляет равнодушным. Индия имеет долгую и богатую историю.',
-        date: '03/06/2023',
+        alt: 'Moretto',
+        title: 'Moretto',
+        text: 'Uma breve descrição de serviço.',
+        date: 'Estilo de tattoo',
     },
 ];
 
@@ -155,33 +155,33 @@ export const PHOTOS: GalleryPhotoType[] = [
 ];
 
 export const MENU_LINKS: NavLinkType[] = [
-    { text: 'Inicial' },
-    { text: 'Sobre o guia' },
-    { text: 'Programa turístico' },
-    { text: 'Preço' },
-    { text: 'Blogue' },
-    { text: 'Contatos' },
+    { text: 'Inicial', href: '/' },
+    { text: 'Sobre o guia', href: 'https://www.google.com'},
+    { text: 'Programa turístico', href: '/'  },
+    { text: 'Preço', href: '/'  },
+    { text: 'Blogue', href: '/'  },
+    { text: 'Contatos', href: '/'  },
 ];
 
 export const FOOTER_LINKS1: NavLinkType[] = [
-    { text: 'Прогулки в горы летом' },
-    { text: 'Зимние походы в горы' },
-    { text: 'Посещение храмов в горах' },
-    { text: 'Экстремальные виды туризма' },
-    { text: 'Походы в джунглях Амазонииы' },
-    { text: 'Поездка в Африку' },
+    { text: 'Прогулки в горы летом', href: '/'},
+    { text: 'Зимние походы в горы', href: '/'  },
+    { text: 'Посещение храмов в горах', href: '/'  },
+    { text: 'Экстремальные виды туризма', href: '/'  },
+    { text: 'Походы в джунглях Амазонииы', href: '/'  },
+    { text: 'Поездка в Африку', href: '/'  },
 ];
 
 export const FOOTER_LINKS2: NavLinkType[] = [
-    { text: 'Как собрать в долгий поход?' },
-    { text: 'Жизненно важные предметы для похода' },
-    { text: 'Медицинская страховка, гарантии безопасности' },
-    { text: 'Если вы врач - загляните сюда' },
+    { text: 'Как собрать в долгий поход?', href: '/'  },
+    { text: 'Жизненно важные предметы для похода', href: '/'  },
+    { text: 'Медицинская страховка, гарантии безопасности', href: '/'  },
+    { text: 'Если вы врач - загляните сюда', href: '/'  },
 ];
 
 export const TINY_SLIDER_SETTINGS = {
     lazyload: false,
-    nav: false,
+    nav: true,
     mouseDrag: true,
     controls: false,
     gutter: 10,

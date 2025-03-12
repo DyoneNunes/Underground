@@ -7,14 +7,12 @@ import { commonTextStyles, TextProps } from '../Text/TextStyles';
 export const StyledHeader = styled.section`
     display: flex;
     flex-direction: row;
-    background-image: image-set(
-        url(${pretoJpg.replace('\\', '/')}),
-        url(${pretoJpg.replace('\\', '/')})
-    );
+    
     background-position: center;
     background-size: cover;
     padding: 20px 0 50px;
     height: 100dvh;
+    width: 100dvw;
 
     .menu-wrapper {
         display: flex;

@@ -1,6 +1,7 @@
 import * as S from './BlogPostCard.Styled';
 import * as T from '../Text/TextStyles';
 import Image from '../Image/Image';
+import { useNavigate } from "react-router-dom";
 
 export type BlogPostCardType = {
     image: string;
@@ -9,6 +10,7 @@ export type BlogPostCardType = {
     title: string;
     text: string;
     date: string;
+    route: string;  // 🚀 Adicionamos a rota ao tipo
 };
 
 const BlogPostCard = ({
@@ -18,9 +20,12 @@ const BlogPostCard = ({
     title,
     text,
     date,
+    route,  // 🚀 Recebemos a rota como prop
 }: BlogPostCardType) => {
+    const navigate = useNavigate();
+
     return (
-        <S.StyledBlogPostCard>
+        <S.StyledBlogPostCard onClick={() => navigate(route)}> 
             <div className="card">
                 <div className="image-wrapper">
                     <Image
@@ -43,11 +48,10 @@ const BlogPostCard = ({
                         </S.Text2>
                         <T.StyledLink
                             className="read-link"
-                            to="#"
                             weight={700}
                             color={'#1A3E3E'}
-                        >
-                            Читать статью
+                        to={route}>
+                        Saiba mais
                         </T.StyledLink>
                     </div>
                 </div>
@@ -55,4 +59,5 @@ const BlogPostCard = ({
         </S.StyledBlogPostCard>
     );
 };
+
 export default BlogPostCard;

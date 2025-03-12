@@ -1,24 +1,38 @@
 import * as S from './HeaderStyles';
+import { useNavigate } from "react-router-dom";
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
-import Menu from '../Menu/Menu';
 import Container from '../Container/Container';
-import { LogoIcon } from '../Icons/LogoIcon';
-import HikeSearchForm from '../HikeSearchForm/HikeSearchForm';
-import { Button } from '../Button/Button';
-import VideoBackground from '../VideoBackground/VideoComponent';
+import Logo from '../../assets/images/logoUndergroundTattooStudio.jpg'
+
+
 const Header = () => {
+    const navigate = useNavigate();
     return (
         <S.StyledHeader>
             <Container>
-                
+                <header className="menu-wrapper">
+                    <button
+                        onClick={() => navigate("/")}
+                        style={{
+                            background: "none",
+                            border: "none",
+                            padding: 0,
+                            cursor: "pointer"
+                        }}
+                    >
+                        <img
+                            src={Logo}
+                            alt="Botão de navegação"
+                            style={{ width: "75px", height: "75px", borderRadius: "50%" }}
+                        />
+                    </button>
+                    {/*<Menu />/*/}
+
+                    <BurgerMenu />
+                </header>
                 <S.H1>
-                    Bem vindo
+                    UNDERGROUND TATTOO STUDIO
                 </S.H1>
-                <S.H2>
-                    EMBREVE TEREMOS NOVIDADE
-                </S.H2>
-
-
 
             </Container>
         </S.StyledHeader>

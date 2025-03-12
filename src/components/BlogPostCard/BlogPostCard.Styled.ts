@@ -9,10 +9,12 @@ export const StyledBlogPostCard = styled.div<Props>`
     .card {
         display: flex;
         flex-direction: column;
-        width: 285px;
+        width: 335px;
         height: 496px;
         background: #fff;
         border-radius: 6px;
+        align-items: center;
+        margin: 10px;
     }
 
     .image-wrapper {
@@ -49,19 +51,29 @@ export const StyledBlogPostCard = styled.div<Props>`
         margin-bottom: auto;
     }
 
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
     .footer {
         display: flex;
         justify-content: space-between;
     }
 
-    @media (min-width: 1180px) {
+    @media (min-width: 1440px) {
         .card {
-            flex-direction: row;
+            flex-direction: column;
             gap: 24px;
-            width: 580px;
-            height: 312px;
+            width: 340px;
+            height: 512px;
             padding: 16px;
             border-radius: 10px;
+            margin: 10px;
 
             &:hover {
                 .content {
@@ -77,6 +89,7 @@ export const StyledBlogPostCard = styled.div<Props>`
             display: flex;
             flex: 0 0 230px;
             height: 280px;
+            width: 280px;
             border-radius: 6px;
         }
 
@@ -87,6 +100,8 @@ export const StyledBlogPostCard = styled.div<Props>`
         .content {
             padding: 16px 0;
             gap: 24px;
+            width: -webkit-fill-available;
+            margin: inherit;
         }
 
         .text > * {

@@ -8,7 +8,7 @@ const SubscriptionForm = () => {
         <S.StyledSubscriptionForm>
             <div className="titles">
                 <T.Text1 color="#f2be22" marginBottom={8}>
-                    актуально
+                    Contatos
                 </T.Text1>
                 <T.Title2 marginBottom={18}>
                     Получайте полезные рассылки о путешествиях

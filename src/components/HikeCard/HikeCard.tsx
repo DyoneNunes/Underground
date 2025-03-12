@@ -27,6 +27,7 @@ const HikeCard = memo(
             <S.StyledHikeCard>
                 <div className="card">
                     <div className="rating">
+                        
                         <Rating
                             rating={rating}
                             top={36.8}
@@ -34,6 +35,7 @@ const HikeCard = memo(
                             zIndex={10}
                         />
                     </div>
+                    
                     <Image
                         className="img"
                         imageWebp={imageWebp}
@@ -69,13 +71,7 @@ const HikeCard = memo(
                                 {description}
                             </T.Text1>
                         </div>
-                        <div className="button-wrapper">
-                            <Button
-                                title="Программа тура"
-                                color="#FDFDFD"
-                                backgroundColor="#1A3E3E"
-                            />
-                        </div>
+                        
                     </div>
                 </div>
             </S.StyledHikeCard>

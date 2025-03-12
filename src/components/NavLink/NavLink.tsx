@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export type NavLinkType = {
     text: string;
+    href: string;
     showArrow?: boolean;
 };
 

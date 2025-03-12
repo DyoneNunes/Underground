@@ -40,6 +40,26 @@ export const StyledAdvantagesSection = styled.div`
         justify-content: center;
     }
 
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color:rgb(3, 3, 3);
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .custom-button:hover {
+    background-color:rgb(46, 97, 62);
+        
+    }
+
+
     @media (min-width: 1180px) {
         gap: 90px;
         grid-template: 1fr / 1fr 1fr;
@@ -51,6 +71,7 @@ export const StyledAdvantagesSection = styled.div`
             grid-area: gallery;
             justify-content: center;
             align-items: center;
+            margin-botton: 100px;
         }
 
         .gallery {

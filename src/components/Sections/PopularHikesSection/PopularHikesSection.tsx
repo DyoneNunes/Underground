@@ -16,8 +16,8 @@ const PopularHikesSection = ({ hikes, tinySliderSettings }: Props) => {
         <ColoredSection>
             <S.PopularHikesSectionStyled>
                 <SectionHeader
-                    description="Conheça nossos Tatuadores"
-                    title="Equipe"
+                    description="Conheça nossos Trabalhos"
+                    title="Aqui você encontra mais que uma tattoo"
                 />
                 <TinySlider settings={tinySliderSettings}>
                     {hikes.map(
@@ -46,13 +46,6 @@ const PopularHikesSection = ({ hikes, tinySliderSettings }: Props) => {
                         ),
                     )}
                 </TinySlider>
-                <div className="button-outer">
-                    <Button
-                        title="Рейтинг направлений"
-                        color="#FDFDFD"
-                        backgroundColor="#1A3E3E"
-                    />
-                </div>
             </S.PopularHikesSectionStyled>
         </ColoredSection>
     );

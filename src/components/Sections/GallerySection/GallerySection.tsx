@@ -1,11 +1,9 @@
 import * as S from './GallerySectionStyled';
 import ColoredSection from '../../Section/ColoredSection';
 import TinySlider from 'tiny-slider-react';
-import { Button } from '../../Button/Button';
 import SliderPhotoGallery, {
     GalleryPhotoType,
 } from '../../PhotoGallery/SliderPhotoGallery';
-import SubscriptionForm from '../../NewsSubscriptionForm/SubscriptionForm';
 import SectionHeader from '../../SectionHeader/SectionHeader';
 import Image from '../../Image/Image';
 
@@ -19,8 +17,8 @@ const GallerySection = ({ photos, tinySliderSettings }: Props) => {
         <ColoredSection>
             <S.GallerySectionStyled>
                 <SectionHeader
-                    description="penalt"
-                    title="GOL"
+                    description="NOSSOS PARCEIROS"
+                    title=""
                 />
                 <div className="gallery">
                     {photos.map(({ image, imageWebp, description }, index) => (
@@ -40,14 +38,6 @@ const GallerySection = ({ photos, tinySliderSettings }: Props) => {
                         ))}
                     </TinySlider>
                 </div>
-                <div className="button-outer">
-                    <Button
-                        title="Наш Pinterest"
-                        color="#FDFDFD"
-                        backgroundColor="#1A3E3E"
-                    />
-                </div>
-                <SubscriptionForm />
             </S.GallerySectionStyled>
         </ColoredSection>
     );

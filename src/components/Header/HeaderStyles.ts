@@ -7,14 +7,12 @@ import { commonTextStyles, TextProps } from '../Text/TextStyles';
 export const StyledHeader = styled.section`
     display: flex;
     flex-direction: row;
-    background-image: image-set(
-        url(${pretoJpg.replace('\\', '/')}),
-        url(${pretoJpg.replace('\\', '/')})
-    );
+    
     background-position: center;
     background-size: cover;
     padding: 20px 0 50px;
     height: 100dvh;
+    width: 100dvw;
 
     .menu-wrapper {
         display: flex;
@@ -46,30 +44,11 @@ export const StyledHeader = styled.section`
 export const H1 = styled.h1<TextProps>`
     ${commonTextStyles};
     color: #fdfdfd;
+    font-family: 'NEXT ART', sans-serif;
     font-size: 28px;
-    line-height: 42px;
-    margin: auto 0 32px;
-    font-family: "Graduate", serif;
     font-weight: 700;
-    font-style: normal;
-
-    @media (min-width: 1180px) {
-        font-size: 50px;
-        font-weight: 700;
-        line-height: 75px;
-        letter-spacing: 1px;
-        margin: auto 0 41px;
-    }
-`;
-export const H2 = styled.h1<TextProps>`
-    ${commonTextStyles};
-    color: #fdfdfd;
-    font-size: 28px;
     line-height: 42px;
     margin: auto 0 32px;
-    font-family: "Graduate", serif;
-    font-weight: 400;
-    font-style: normal;
 
     @media (min-width: 1180px) {
         font-size: 50px;
@@ -78,39 +57,4 @@ export const H2 = styled.h1<TextProps>`
         letter-spacing: 1px;
         margin: auto 0 41px;
     }
-`;
-
-
-export const LandingPage = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    position: relative;
-    transition: 0.5s;
-    font-family: "Merienda", serif;
-
-    @media (min-width: 1180px) {
-        height: 120vh;
-    }
-`;
-
-export const VideoBg = styled.video`
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    z-index: -1;
-    object-fit: cover;
-`;
-
-export const BgOverlay = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    z-index: 0;
 `;

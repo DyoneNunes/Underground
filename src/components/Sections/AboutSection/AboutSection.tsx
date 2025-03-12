@@ -6,19 +6,22 @@ import houseVideoPreview from '../../../assets/images/house-video-preview.jpg';
 import houseVideoPreviewWebp from '../../../assets/images/house-video-preview.webp';
 import SectionHeader from '../../SectionHeader/SectionHeader';
 import Image from '../../Image/Image';
+import { useNavigate } from "react-router-dom";
 
 const AboutSection = () => {
+    const navigate = useNavigate();
+    
     return (
         <ColoredSection>
             <S.StyledAboutSection>
                 <div className="article-outer">
                     <article className="article">
                         <SectionHeader
-                            description="о нашем походе"
-                            title="Исследуйте горные массивы мира вместе с нами"
+                            description="Eventos Underground"
+                            title="Nossos Eventos"
                         />
                         <T.Text1>
-                           texto 1
+                            Aqui estao os nossos principais eventos
                         </T.Text1>
                         <div
                             style={{
@@ -26,11 +29,12 @@ const AboutSection = () => {
                                 justifyContent: 'center',
                             }}
                         >
-                            <Button
-                                title="Программа тура"
-                                color="#FDFDFD"
-                                backgroundColor="#1A3E3E"
-                            />
+                            <button
+                                style={{padding:10 , color: "#FDFDFD", backgroundColor: "#1A3E3E" }}
+                                onClick={() => navigate("/Eventos")}
+                            >
+                                <text>Album de fotos</text>
+                            </button>
                         </div>
                     </article>
                 </div>

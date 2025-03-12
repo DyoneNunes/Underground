@@ -6,6 +6,7 @@ type Props = {
     color?: string;
     backgroundColor?: string;
     large?: boolean;
+    onClick?: () => void; 
 };
 
 export const Button = ({
