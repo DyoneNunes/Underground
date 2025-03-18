@@ -28,7 +28,6 @@ const Header = () => {
                     </button>
                     {/*<Menu />/*/}
 
-                    <BurgerMenu />
                 </header>
                 <S.H1>
                     UNDERGROUND TATTOO STUDIO

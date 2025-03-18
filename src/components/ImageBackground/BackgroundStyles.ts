@@ -1,21 +1,20 @@
 import styled from 'styled-components';
 import { commonTextStyles, TextProps } from '../Text/TextStyles';
+import backgroundImage from "../../assets/images/background.jpg";
 
 // Container principal da página
 export const LandingPage = styled.div`
     width: 100%;
     height: 100vh;
+    background-image: url(${backgroundImage});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     position: relative;
-    transition: 0.5s;
-    font-family: "Merienda", serif;
-
-    @media (min-width: 1180px) {
-        height: 100vh;
-    }
 `;
 
 // Vídeo de fundo
