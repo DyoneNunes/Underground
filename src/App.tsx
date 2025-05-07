@@ -1,4 +1,5 @@
 import HomePage from './pages/Home';
+import HomePage2 from './pages/Home2';
 import SabaJv from './pages/SabaMasTattoadores/SabaJv';
 import SabaLion from './pages/SabaMasTattoadores/SabaLion';
 import SabaMoretto from './pages/SabaMasTattoadores/SabaMoretto';
@@ -14,6 +15,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/home" element={<HomePage2 />} />
                 <Route path="/JvTattoo" element={<SabaJv />} />
                 <Route path="/Lion" element={<SabaLion />} />
                 <Route path="/Moretto" element={<SabaMoretto />} />

@@ -3,7 +3,7 @@ import VideoBackground from '../components/VideoBackground/VideoComponent';
 import CompanyInfoSection from '../components/Sections/CompanyInfoSection/CompanyInfoSection';
 import AboutSection from '../components/Sections/AboutSection/AboutSection';
 import { Menu } from '../components/VideoBackground/BackgroundStyles';
-
+import FooterSection from '../components/Sections/FooterSection/FooterSection';
 const HomePage = () => {
     return (
         <>
@@ -19,6 +19,7 @@ const HomePage = () => {
          * 9. Adicione a nova tela no arquivo src/routes.tsx
          */}
             <VideoBackground/>
+            <FooterSection />
             <CompanyInfoSection />
         </>
     );
