@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  SITE_ADMIN
+}
+
+model Site {
+  id            String   @id @default(uuid())
+  slug          String   @unique // e.g. "tattoo", "barber", "store"
+  name          String   // e.g. "Estúdio de Tattoo", "Barbearia", "Loja de Roupas"
+  title         String   // Hero title
+  subtitle      String?  // Subtitle
+  badge         String?  // Badge e.g. "🖋️ ESTÚDIO", "💈 BARBEARIA", "👕 LOJA"
+  accentColor   String   @default("#c41e3a") @map("accent_color") // Hex color
+  isDefault     Boolean  @default(false) @map("is_default")
+  isTemplate    Boolean  @default(false) @map("is_template")
+
+  // Tools & Feature Templates
+  hasAgenda           Boolean @default(false) @map("has_agenda")
+  hasWhatsappCard     Boolean @default(true)  @map("has_whatsapp_card")
+  whatsappCardTitle   String?                 @map("whatsapp_card_title")
+  whatsappCardText    String?                 @map("whatsapp_card_text")
+  whatsappCardMessage String?                 @map("whatsapp_card_message")
+  hasMusicPlayer      Boolean @default(true)  @map("has_music_player")
+
+  active        Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  users         User[]
+  heroImages    HeroImage[]
+  services      Service[]
+  professionals Professional[]
+  events        Event[]
+  contactInfo   ContactInfo?
+  messages      ContactMessage[]
+  musicLinks    SiteMusicLink[]
+
+  @@map("sites")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(SITE_ADMIN)
+  siteId    String?  @map("site_id")
+  site      Site?    @relation(fields: [siteId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model HeroImage {
+  id        String   @id @default(uuid())
+  imageUrl  String   @map("image_url")
+  altText   String?  @map("alt_text")
+  order     Int      @default(0)
+  siteId    String   @map("site_id")
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("hero_images")
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String   @map("image_url")
+  siteId      String   @map("site_id")
+  site        Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  active      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
+model Professional {
+  id           String        @id @default(uuid())
+  name         String
+  bio          String
+  imageUrl     String        @map("image_url")
+  specialty    String?
+  siteId       String        @map("site_id")
+  site         Site          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  active       Boolean       @default(true)
+  appointments Appointment[]
+  schedules    WorkSchedule[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@map("professionals")
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?  @map("image_url")
+  date        DateTime
+  location    String?
+  siteId      String   @map("site_id")
+  site        Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("events")
+}
+
+model ContactInfo {
+  id        String   @id @default(uuid())
+  phone     String?
+  whatsapp  String?
+  email     String?
+  address   String?
+  latitude  Float?
+  longitude Float?
+  instagram String?
+  siteId    String   @unique @map("site_id")
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("contact_info")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  siteId    String   @map("site_id")
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model SiteMusicLink {
+  id        String   @id @default(uuid())
+  title     String
+  artist    String?
+  url       String   // Audio file URL or Spotify/SoundCloud/YouTube link
+  type      String   @default("audio") // "audio", "spotify", "soundcloud", "youtube"
+  siteId    String   @map("site_id")
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("site_music_links")
+}
+
+model RadioTrack {
+  id        String   @id @default(uuid())
+  title     String
+  artist    String?
+  audioUrl  String   @map("audio_url")
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("radio_tracks")
+}
+
+model RadioConfig {
+  id      String  @id @default(uuid())
+  isOnAir Boolean @default(true) @map("is_on_air")
+
+  @@map("radio_config")
+}
+
+model Appointment {
+  id             String       @id @default(uuid())
+  clientName     String       @map("client_name")
+  clientPhone    String       @map("client_phone")
+  clientEmail    String?      @map("client_email")
+  professional   Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  professionalId String       @map("professional_id")
+  date           DateTime
+  time           String
+  service        String?
+  status         String       @default("pending")
+  notes          String?
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  @@map("appointments")
+}
+
+model WorkSchedule {
+  id             String       @id @default(uuid())
+  professional   Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  professionalId String       @map("professional_id")
+  dayOfWeek      Int          @map("day_of_week") // 0=Sunday, 6=Saturday
+  startTime      String       @map("start_time")  // "09:00"
+  endTime        String       @map("end_time")    // "18:00"
+  slotDuration   Int          @default(30) @map("slot_duration") // minutes
+  active         Boolean      @default(true)
+
+  @@unique([professionalId, dayOfWeek])
+  @@map("work_schedules")
+}

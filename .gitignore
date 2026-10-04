@@ -1,0 +1,18 @@
+node_modules/
+.env*
+!.env.example
+dist/
+.next/
+uploads/images/*
+uploads/audio/*
+!uploads/images/.gitkeep
+!uploads/audio/.gitkeep
+backend/uploads/images/*
+backend/uploads/audio/*
+!backend/uploads/images/.gitkeep
+!backend/uploads/audio/.gitkeep
+*.log
+.DS_Store
+
+# Dados persistentes (banco, uploads, backups)
+data/

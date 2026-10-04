@@ -1,0 +1,108 @@
+# ============================================================================
+# Underground Tattoo — stack completa
+#
+#   docker compose up -d --build
+#
+# Sobe banco → backend → frontend. O backend cria/atualiza o banco SOMENTE via
+# migrations versionadas (backend/prisma/migrations), com backup pg_dump antes
+# de qualquer mudança de schema, e nunca roda operação destrutiva.
+#
+# Dados persistem em ./data (bind mounts): nem `docker compose down -v` apaga.
+#   ./data/postgres  → arquivos do PostgreSQL
+#   ./data/uploads   → imagens e áudios enviados pelo painel
+#   ./data/backups   → dumps automáticos (pg_restore p/ restaurar)
+# ============================================================================
+name: undergroundtattoo
+
+networks:
+  underground-net:
+    name: underground-net
+
+volumes:
+  pgadmin_data:
+    name: undergroundtattoo_pgadmin
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: underground_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-underground}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+      POSTGRES_DB: ${POSTGRES_DB:-underground_tattoo}
+    ports:
+      - "${POSTGRES_BIND:-127.0.0.1}:${POSTGRES_PORT:-5434}:5432"
+    networks:
+      - underground-net
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-underground} -d ${POSTGRES_DB:-underground_tattoo}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: underground_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@underground.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:?defina PGADMIN_PASSWORD no .env}
+    ports:
+      - "${PGADMIN_BIND:-127.0.0.1}:${PGADMIN_PORT:-5050}:80"
+    networks:
+      - underground-net
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build:
+      context: ./backend
+    container_name: underground_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-underground}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-underground_tattoo}?schema=public"
+      JWT_SECRET: "${JWT_SECRET:?defina JWT_SECRET no .env (openssl rand -hex 48)}"
+      JWT_EXPIRES_IN: "${JWT_EXPIRES_IN:-7d}"
+      PORT: "3006"
+      NODE_ENV: "production"
+      FRONTEND_URL: "${FRONTEND_URL:-http://localhost:3004}"
+      TRUST_PROXY: "${TRUST_PROXY:-}"
+      SEED_ON_EMPTY: "${SEED_ON_EMPTY:-true}"
+      SEED_ADMIN_PASSWORD: "${SEED_ADMIN_PASSWORD:-}"
+    ports:
+      - "${BACKEND_PORT:-3006}:3006"
+    networks:
+      - underground-net
+    volumes:
+      - ./data/uploads:/app/uploads
+      - ./data/backups:/app/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3006/api/health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:3006/api}"
+    container_name: underground_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3004}:3004"
+    networks:
+      - underground-net
+    depends_on:
+      backend:
+        condition: service_healthy

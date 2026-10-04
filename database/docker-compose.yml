@@ -1,0 +1,55 @@
+# OBSOLETO: a stack agora sobe pelo docker-compose.yml da RAIZ (docker compose up -d --build).
+# Não use este arquivo junto com o da raiz — os nomes de container conflitam.
+name: undergroundtattoo-db
+
+networks:
+  underground-net:
+    name: underground-net
+    external: true
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: underground_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-underground}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-underground_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-underground_tattoo}
+    ports:
+      - "${POSTGRES_BIND:-127.0.0.1}:${POSTGRES_PORT:-5434}:5432"
+    networks:
+      - underground-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-underground} -d ${POSTGRES_DB:-underground_tattoo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: underground_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@underground.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+    ports:
+      - "${PGADMIN_BIND:-127.0.0.1}:${PGADMIN_PORT:-5050}:80"
+    networks:
+      - underground-net
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+    name: undergroundtattoo_pgdata
+    external: true
+  pgadmin_data:
+    name: undergroundtattoo_pgadmin
+    external: true

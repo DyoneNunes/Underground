@@ -1,0 +1,35 @@
+# OBSOLETO: a stack agora sobe pelo docker-compose.yml da RAIZ (docker compose up -d --build).
+# Não use este arquivo junto com o da raiz — os nomes de container conflitam.
+name: undergroundtattoo-backend
+
+networks:
+  underground-net:
+    name: underground-net
+    external: true
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: underground_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: "${DATABASE_URL:-postgresql://underground:underground_secret@underground_db:5432/underground_tattoo?schema=public}"
+      JWT_SECRET: "${JWT_SECRET:?defina JWT_SECRET no .env (openssl rand -hex 48)}"
+      JWT_EXPIRES_IN: "${JWT_EXPIRES_IN:-7d}"
+      PORT: "${PORT:-3006}"
+      NODE_ENV: "production"
+      FRONTEND_URL: "${FRONTEND_URL:-http://localhost:3004}"
+      TRUST_PROXY: "${TRUST_PROXY:-}"
+    ports:
+      - "${PORT:-3006}:${PORT:-3006}"
+    networks:
+      - underground-net
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  uploads:
+    name: undergroundtattoo_uploads
+    external: true
