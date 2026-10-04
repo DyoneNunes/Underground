@@ -8,6 +8,7 @@ COPY package*.json ./
 RUN npm config set fetch-retry-maxtimeout 120000 && npm ci
 
 COPY . .
+RUN mkdir -p /app/public
 
 ARG NEXT_PUBLIC_API_URL=http://localhost:3006/api
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
